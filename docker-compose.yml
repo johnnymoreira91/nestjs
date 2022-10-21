@@ -1,0 +1,33 @@
+version: "3" ## especifica a versão do docker-compose file
+
+services:
+  # app: ## nome do serviço
+  #   build: . ## localização do dockerfile
+  #   command: yarn dev ## comando a executar
+  #   ports:
+  #     - "3001:3001" ## redirecionamento de porta quando chegar alguma requisição na porta 3000 chama o container na porta 3000
+  #   volumes:
+  #     - .:/usr/app ## monitoro a pasta atual . e envio as alterações para /usr/app
+  dbPg:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "MySql2022!"
+      MYSQL_DATABASE: "nest"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data:/var/lib/mysql
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
+          cpus: '1.5'
+        reservations:
+          memory: 1024M
+
+# networks: 
+#   backend:
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: 172.30.0.0/16

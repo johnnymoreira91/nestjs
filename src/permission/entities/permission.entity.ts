@@ -1,5 +1,6 @@
-import { Table, Model, Column, DataType } from 'sequelize-typescript';
+import { Table, Model, Column, DataType, HasMany } from 'sequelize-typescript';
 import { CreatePermission, PermissionModel } from 'src/models/permissions';
+import { User } from 'src/user/entities/user.entity';
 
 @Table({
   tableName: 'permissions',
@@ -35,4 +36,7 @@ export class Permissions extends Model<PermissionModel, CreatePermission> {
     defaultValue: 'NOW()',
   })
   updatedAt: Date;
+
+  @HasMany(() => User)
+  user: User;
 }

@@ -1,6 +1,13 @@
-import { Table, Model, Column, DataType } from 'sequelize-typescript';
+import {
+  Table,
+  Model,
+  Column,
+  DataType,
+  ForeignKey,
+  BelongsTo,
+} from 'sequelize-typescript';
 import { CreateUser, UserModel } from 'src/models/users';
-// import { Permissions } from 'src/permission/entities/permission.entity';
+import { Permissions } from 'src/permission/entities/permission.entity';
 
 @Table({
   tableName: 'users',
@@ -42,7 +49,7 @@ export class User extends Model<UserModel, CreateUser> {
   })
   superUser: boolean;
 
-  // @ForeignKey(() => Permissions)
+  @ForeignKey(() => Permissions)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -55,17 +62,20 @@ export class User extends Model<UserModel, CreateUser> {
   })
   roleId: number;
 
+  @BelongsTo(() => Permissions)
+  permission: Permissions;
+
   @Column({
     type: DataType.DATE,
     allowNull: true,
-    defaultValue: 'NOW()',
+    defaultValue: new Date().toISOString().substring(0, 10),
   })
   createdAt: Date;
 
   @Column({
     type: DataType.DATE,
     allowNull: true,
-    defaultValue: 'NOW()',
+    defaultValue: new Date().toISOString().substring(0, 10),
   })
   updatedAt: Date;
 }

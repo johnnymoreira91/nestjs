@@ -1,0 +1,14 @@
+{
+  "explorer.confirmDelete": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "git.enableSmartCommit": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "breadcrumbs.enabled": true,
+  "markdown.preview.breaks": true,
+  "npm.autoDetect": "off",
+  "editor.fontLigatures": true,
+  "files.autoSave": "off",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}

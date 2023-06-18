@@ -1,4 +1,10 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsEmail } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsEmail,
+  Matches,
+} from 'class-validator';
 import { CreateUser } from 'src/models/users';
 
 export class CreateUserDto implements CreateUser {
@@ -22,6 +28,9 @@ export class CreateUserDto implements CreateUser {
   email: string;
 
   @IsNotEmpty()
+  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
+    message: 'password too weak',
+  })
   password;
 
   // @IsEmpty()

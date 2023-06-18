@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
@@ -8,7 +8,11 @@ export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   async create(createUserDto: CreateUserDto) {
-    return await this.userRepository.create({ ...createUserDto });
+    try {
+      return await this.userRepository.create({ ...createUserDto });
+    } catch (error) {
+      throw new BadRequestException(error.parent.detail);
+    }
   }
 
   async findAll() {

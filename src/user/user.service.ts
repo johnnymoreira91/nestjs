@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CacheService } from 'src/infra/services/cache/CacheService';
-import { ICacheService } from 'src/infra/services/cache/ICacheService';
 import { Cache } from 'src/utils/enum/Cache';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';

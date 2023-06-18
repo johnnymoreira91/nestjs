@@ -62,6 +62,22 @@ export class User extends Model<UserModel, CreateUser> {
   })
   roleId: number;
 
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true,
+    },
+  })
+  email: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  password: string;
+
   @BelongsTo(() => Permissions)
   permission: Permissions;
 

@@ -7,6 +7,8 @@ const userSchema = z.object({
   age: z.number().min(18, { message: 'Minimum age is 18' }),
   superUser: z.boolean().default(false),
   roleId: z.number(),
+  email: z.string().email({ message: 'Must be a valid email' }),
+  password: z.string(),
   createdAt: z.date().nullable(),
   updatedAt: z.date().nullable(),
 });

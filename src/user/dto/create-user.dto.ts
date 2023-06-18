@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsEmpty } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber, IsEmail } from 'class-validator';
 import { CreateUser } from 'src/models/users';
 
 export class CreateUserDto implements CreateUser {
@@ -16,6 +16,13 @@ export class CreateUserDto implements CreateUser {
   @IsNotEmpty()
   @IsBoolean()
   superUser: boolean;
+
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @IsNotEmpty()
+  password;
 
   // @IsEmpty()
   // createdAt: Date;

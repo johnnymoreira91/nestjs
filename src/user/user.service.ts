@@ -1,42 +1,29 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
-import { Permissions } from 'src/permission/entities/permission.entity';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @Inject('USER_REPOSITORY')
-    private readonly userRepository: typeof User,
-  ) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
   async create(createUserDto: CreateUserDto) {
     return await this.userRepository.create({ ...createUserDto });
   }
 
   async findAll() {
-    return await this.userRepository.findAll({
-      include: [{ model: Permissions, as: 'permission' }],
-    });
+    return await this.userRepository.findAll();
   }
 
   async findOne(id: number) {
-    return await this.userRepository.findByPk(id);
+    return await this.userRepository.findOne(id);
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    return await this.userRepository.update(
-      { ...updateUserDto },
-      {
-        where: { id },
-      },
-    );
+    return await this.userRepository.update(id, updateUserDto);
   }
 
   async remove(id: number) {
-    return await this.userRepository.destroy({
-      where: { id },
-    });
+    return await this.userRepository.remove(id);
   }
 }

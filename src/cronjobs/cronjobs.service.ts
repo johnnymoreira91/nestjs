@@ -11,7 +11,7 @@ export class CronjobsService {
     private readonly aliveTask: AliveTask,
   ) {}
 
-  handlecron() {
+  handleAlive() {
     this.aliveTask.handleCron();
   }
 

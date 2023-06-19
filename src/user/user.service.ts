@@ -5,17 +5,24 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
+import { MailerService } from '@nestjs-modules/mailer';
+import { SendEmailProducerService } from 'src/infra/jobs/sendEmailProducerService';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly cacheService: CacheService,
+    private readonly mailService: SendEmailProducerService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
     try {
-      return await this.userRepository.create({ ...createUserDto });
+      const data = await this.userRepository.create({ ...createUserDto });
+
+      await this.mailService.sendEmail(createUserDto);
+
+      return data;
     } catch (error) {
       throw new BadRequestException(error.parent.detail);
     }

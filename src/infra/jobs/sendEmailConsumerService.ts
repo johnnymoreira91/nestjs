@@ -38,7 +38,7 @@ class SendEmailConsumerService {
 
   @OnQueueActive()
   onActive(job: Job) {
-    console.log(`Activated queue: ${job.name}`);
+    console.log(`Processing job ${job.id} of type ${job.name}`);
   }
 
   @OnQueueFailed()
